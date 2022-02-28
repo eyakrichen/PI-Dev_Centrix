@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -51,8 +52,6 @@ class Product
      */
     private $rate;
 
-
-
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="product", orphanRemoval=true)
      */
@@ -60,11 +59,13 @@ class Product
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
+     * @Assert\NotBlank
      */
     private $categories;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="products")
+     * @Assert\NotBlank
      */
     private $tags;
 
