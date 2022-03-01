@@ -48,6 +48,7 @@ class Product
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank
+     * @Assert\Positive
      * @Assert\Expression("this.getRate()<5 && this.getRate()>0 ")
      */
     private $rate;

@@ -1,6 +1,17 @@
 {% block body %}
 
+<style>
+    tr:hover {background-color: coral;}
+    th, td {
+        padding: 15px;
+        text-align: left;}
+    tr:nth-child(even) {background-color: #f2f2f2;}
+    th {
+        background-color: #f2f2f2;
+        color: white;
+    }
 
+</style>
 <h1 align="center"  width="100%" style="color: #023163">Liste des produits</h1> <hr>
 
 
@@ -19,14 +30,14 @@
     </thead>
 
     <tbody>
-    {% for product in Products  %}
+    {% for product in products  %}
 
         <tr>
             <td >{{ product.id }}</td>
             <td >{{ product.name }}</td>
             <td>{{ product.description }}</td>
             <td >{{ product.price }}</td>
-            <td >{{ product.releaseDate }}</td>
+            <td >{{ product.releaseDate|date("d/m/Y") }}</td>
         </tr>
 
     {% endfor %}

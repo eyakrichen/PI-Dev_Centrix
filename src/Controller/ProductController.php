@@ -33,6 +33,42 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @Route("/imprime", name="imprimeproduct")
+     */
+    public function imprimeproduct(ProductRepository $productRepository): Response
+
+    {
+        //Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        $products = $productRepository->findAll();
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('product/imprimeproduct.html.twig', [
+            'products' => $products,
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Set up the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("Liste_product.pdf", [
+            "Attachment" => true
+        ]);
+        return $this->redirectToRoute('product_index');
+    }
+
+    /**
      * @Route("/new", name="product_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -42,10 +78,10 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file= $request->files->get('product')['image'];
+            $file = $request->files->get('product')['image'];
 
-            $uploads_directory=$this->getParameter('uploads_directory');
-            $file_name=md5(uniqid())    . '.'   . $file->guessExtension();
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $file_name = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $uploads_directory,
                 $file_name
@@ -70,7 +106,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_show", methods={"GET"})
      */
-    public function show(Product $product,CategoryRepository $categoryRepository): Response
+    public function show(Product $product, CategoryRepository $categoryRepository): Response
     {
         return $this->render('product/show.html.twig', [
             'product' => $product,
@@ -88,10 +124,10 @@ class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $file= $request->files->get('product')['image'];
+            $file = $request->files->get('product')['image'];
 
-            $uploads_directory=$this->getParameter('uploads_directory');
-            $file_name=md5(uniqid())    . '.'   . $file->guessExtension();
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $file_name = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $uploads_directory,
                 $file_name
@@ -113,7 +149,7 @@ class ProductController extends AbstractController
      */
     public function delete(Request $request, Product $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
             $entityManager->flush();
@@ -122,39 +158,4 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
     }
 
-
-    /**
-     * @Route("/imprimeproduct", name="imprimeproduct")
-     */
-    public function imprimeproduct(ProductRepository $productRepository): Response
-
-    {
-       //Configure Dompdf according to your needs
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-
-        $products = $productRepository->findAll();
-
-        // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('Product/imprimeproduct.html.twig', [
-            'products' => $products,
-        ]);
-
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-
-        // (Optional) Set up the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("Liste_product.pdf", [
-            "Attachment" => true
-        ]);
-    }
 }
