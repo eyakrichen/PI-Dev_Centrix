@@ -18,6 +18,7 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("products:read")
      */
     private $id;
 
@@ -30,11 +31,14 @@ class Product
      *  minMessage="le title d'un article  doit etre au moins 1 caractere",
      *  maxMessage="le title d'un article doit etre au plus 2à caracteres"
      * )
+     * @Groups("products:read")
+
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=10000)
+     * @Groups("products:read")
      * @Assert\NotBlank
      */
     private $description;
@@ -42,6 +46,7 @@ class Product
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank
+     * @Groups("products:read")
      */
     private $price;
 

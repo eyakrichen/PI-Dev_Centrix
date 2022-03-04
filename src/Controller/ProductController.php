@@ -23,6 +23,31 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class ProductController extends AbstractController
 {
     /**
+     * @Route("/getproduct", name="getproduct")
+     */
+    public function getProdDetailsJsonAction()
+    {
+
+        $produit=$this->getDoctrine()->getManager()
+            ->getRepository(Product::class)
+            ->findAll();
+
+        $data =  array();
+        foreach ($produit as $key => $p){
+            //$data[$key]['ref_p']= $p->getRefP();
+            $data[$key]['idProduit']= $p->getid();
+            $data[$key]['nom_produit']= $p->getname();
+            $data[$key]['prix']= $p->getprice();
+            //echo $data[$key]['nomP'];
+            $data[$key]['description']= $p->getdescription();
+            //$data[$key]['path']= $p->getPath();
+
+        }
+
+        return new JsonResponse($data);
+
+    }
+    /**
      * @Route("/", name="product_index", methods={"GET"})
      */
     public function index(ProductRepository $productRepository): Response
