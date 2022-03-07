@@ -1,0 +1,25 @@
+{% extends 'base_front.html.twig' %}
+
+
+{% block body %}
+ 
+    <div class="nk-info-box nk-info-box-noicon">
+    <div class="container-xl">  
+        <h1> Inscription : </h1> 
+        {{ form_start(form) }}   
+         {{ form_row(form.username, {label:'Nom d\'utilistateur','attr': {placeholder : 'Nom d\'utilistateur'} })}}
+         {{ form_row(form.email,  {label:'E-mail','attr': {placeholder : 'E-mail'} })}}
+         {{ form_row(form.gender)}}
+         {{ form_row(form.Age,  {label:'Age','attr': {placeholder : 'Age'} })}}
+         {{ form_row(form.password, )}}
+         {{ form_row(form.confirm_password)}}
+         <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-dark-3">
+                        <span>Send</span>
+                        <span class="icon"><i class="ion-paper-airplane"></i></span>
+         </button>
+        {{form_end(form)}}
+
+    </div>
+    </div>
+
+{% endblock %}

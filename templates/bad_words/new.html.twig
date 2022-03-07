@@ -1,0 +1,9 @@
+{% extends 'base_back.html.twig' %}
+
+{% block body %}
+    <h1>Create new BadWords</h1>
+
+    {{ include('bad_words/_form.html.twig') }}
+
+    <a href="{{ path('app_bad_words_index') }}">back to list</a>
+{% endblock %}

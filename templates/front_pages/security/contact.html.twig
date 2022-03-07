@@ -1,0 +1,42 @@
+{% extends 'base_front.html.twig' %}
+
+{%block body%}
+<div class="container p-3 my-3 text-white">
+<div class="col-md-6">
+	<div class="nk-widget">
+		<h4 class="nk-widget-title">
+			<span class="text-main-1">Contactez</span>
+			-nous</h4>
+		<div class="nk-widget-content">
+			<form class="nk-form nk-form-ajax" action="{{ path('contact') }}" method="POST" >
+				<div class="row vertical-gap sm-gap">
+
+					<div class="col-md-6">
+						{%if form is defined%}
+							{{ form_start(form) }}
+							{{ form_widget(form.email, {attr: {class: 'form-control required'} } )}}
+						</div>
+						<div class="col-md-6">
+							{{ form_widget(form.object, {attr: {class: 'form-control required'} } )}}
+						</div>
+					</div>
+					<div class="nk-gap"></div>
+					{{ form_widget(form.content, {attr: {class: 'form-control required'} } )}}
+
+					<div class="nk-gap-1"></div>
+					<button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-white">
+                                <span>Send</span>
+                                <span class="icon"><i class="ion-paper-airplane"></i></span>
+                            </button>
+					{{form_end(form)}}
+					{%endif%}
+
+					<div class="nk-form-response-success"></div>
+					<div class="nk-form-response-error"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+    </div>
+    
+	{%endblock%}
