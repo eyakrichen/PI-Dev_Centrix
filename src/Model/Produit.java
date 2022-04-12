@@ -28,6 +28,7 @@ public class Produit {
         this.image = image;
         this.release_date = release_date;
     }
+    
 
     public Produit(int id) {
         this.id = id;

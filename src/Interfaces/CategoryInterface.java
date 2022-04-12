@@ -19,4 +19,5 @@ public interface CategoryInterface {
     public void SupprimerCategory (Category c);
     //public List<Produit> AfficherProduit ();
     public ObservableList<Category> getCategoryList();
+    public Category  getCategory(Category c);
 }

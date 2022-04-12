@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import Model.Category;
 import Model.Produit;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,4 +22,12 @@ public interface ProduitInterface {
     public void SupprimerProduit (Produit p);
     //public List<Produit> AfficherProduit ();
     public ObservableList<Produit> getProduitList();
+   // public void getProduit(Produit p);
+    public Produit  getProduit(Produit p);
+     public void InsertProdSelonCat(Produit p , Category c);
+      public Produit getProduitByCtegory(Produit p , Category c);
+     // public Produit getProduitByCtegory(Produit p,);
+     public float  TotalProduct();
+     public ObservableList<Produit> triProduit();
+     public ObservableList<Produit> MaxRate();
 }

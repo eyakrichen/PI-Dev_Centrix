@@ -100,4 +100,28 @@ public class CategoryService implements  CategoryInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    
+       public Category getCategory(Category c) {
+        try {
+            PreparedStatement pre = cnx.prepareStatement("SELECT * FROM `category`  WHERE id = ?");
+            pre.setInt(1, c.getId());
+            ResultSet rs = pre.executeQuery();
+            //Produit p = new Produit();
+            if (rs.next()) {
+            c.setId(rs.getInt("id"));
+            c.setName(rs.getString("name"));
+           // System.out.println(c);
+            }
+        return c;
+       
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+
+    }
+
+   
+
+    
 }
